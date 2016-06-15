@@ -2,6 +2,8 @@
 *.apk
 *.ap_
 
+
+
 # files for the dex VM
 *.dex
 
@@ -11,12 +13,15 @@
 # generated files
 bin/
 gen/
+out/
 
 # Local configuration file (sdk path, etc)
 local.properties
 
 # Windows thumbnail db
 Thumbs.db
+
+*.log
 
 # OSX files
 .DS_Store
@@ -31,7 +36,12 @@ Thumbs.db
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
-build.gradle
+
+.navigation/
+
+captures/
+
+*.jks
 
 #NDK
 obj/
