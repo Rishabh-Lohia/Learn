@@ -39,6 +39,10 @@ build/
 
 .navigation/
 
+app/gradle/
+app/gradlew
+app/gradlew.bat
+
 captures/
 
 *.jks
