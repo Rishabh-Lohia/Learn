@@ -1,0 +1,75 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="in.co.go_bio.learn.MainActivity">
+    <item
+        android:title=""
+        android:orderInCategory="300"
+        app:showAsAction="always"
+        />
+
+
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:orderInCategory="300"
+        android:icon="@drawable/peoplefollowed"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/action_xyz"
+        android:orderInCategory="300"
+        android:title="User"
+        android:icon="@drawable/tokras"
+        app:showAsAction="always"/>
+
+
+
+
+    <item
+        android:id="@+id/action_abc1"
+        android:orderInCategory="300"
+        android:title="User"
+        android:icon="@drawable/mybio"
+        app:showAsAction="always"/>
+
+
+
+
+    <item
+        android:id="@+id/action_abc2"
+        android:orderInCategory="300"
+        android:title="User"
+
+        android:icon="@drawable/biopic"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/action_abc"
+        android:orderInCategory="300"
+        android:title="User"
+        android:icon="@drawable/notification"
+
+        app:showAsAction="always"/>
+
+    <item
+        android:title="  "
+        android:orderInCategory="300"
+        android:icon="@drawable/mybio"
+        app:showAsAction="always"/>
+    <item
+        android:title=" "
+        android:orderInCategory="300"
+        android:icon="@drawable/white"
+        app:showAsAction="always"/>
+    <item
+        android:title=" "
+        android:orderInCategory="300"
+        android:icon="@drawable/white"
+        app:showAsAction="always"/>
+
+
+
+</menu>

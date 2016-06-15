@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="in.co.go_bio.learn.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="300"
+        android:title="settings"
+        android:icon="@drawable/setting"
+
+        android:gravity="center"
+
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="200"
+        android:title="Search"
+        android:gravity="center"
+
+        android:icon="@drawable/search"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_user"
+        android:orderInCategory="100"
+        android:title="User"
+        android:gravity="center"
+
+        android:icon="@drawable/help"
+        app:showAsAction="ifRoom"/>
+
+</menu>

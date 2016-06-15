@@ -1,0 +1,138 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
+
+
+
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar1"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        />
+
+
+
+
+    <!---->
+
+    <in.co.go_bio.learn.SlidingTabLayout
+
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:elevation="2dp"
+        android:background="@color/ColorPrimary"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+      android:background="#9E9E9E"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+
+        android:layout_alignParentBottom="true"
+        >
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+
+        <ImageButton
+            android:id="@+id/btnOne"
+            android:layout_marginTop="9dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/selctor_button"
+            android:layout_marginBottom="9dp"
+
+
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:id="@+id/btntwo"
+            android:layout_marginTop="9dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/tokras"
+            android:layout_marginBottom="9dp"
+
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:id="@+id/btnthree"
+            android:layout_marginTop="9dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/mybio"
+            android:layout_marginBottom="9dp"
+
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:id="@+id/btnfour"
+            android:layout_marginTop="9dp"
+
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/biopic"
+            android:layout_marginBottom="9dp"
+
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:id="@+id/btnfive"
+            android:layout_marginTop="9dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/notification"
+            android:layout_marginBottom="9dp"
+
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        </LinearLayout>
+
+
+
+</LinearLayout>

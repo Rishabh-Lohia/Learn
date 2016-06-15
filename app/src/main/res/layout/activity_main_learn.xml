@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="25dp"
+    >
+    <in.co.go_bio.learn.SlidingTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:elevation="2dp"
+        android:background="@color/ColorPrimary"/>
+
+    <ViewAnimator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewAnimator"
+        android:layout_below="@+id/tabs"
+        android:layout_alignParentTop="false"
+        android:clickable="true">
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageView"
+        android:src="@drawable/plant"
+        android:adjustViewBounds="true"
+
+        android:maxHeight="520dp"
+        android:maxWidth="500dp"
+
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:src="@drawable/root"
+        android:id="@+id/imageView3"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:maxHeight="520dp"
+        android:maxWidth="500dp"
+    />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:adjustViewBounds="true"
+            android:maxHeight="520dp"
+            android:maxWidth="500dp"
+            android:nestedScrollingEnabled="false"
+            android:scaleType="centerInside" />
+    </ViewAnimator>
+
+
+</RelativeLayout>
