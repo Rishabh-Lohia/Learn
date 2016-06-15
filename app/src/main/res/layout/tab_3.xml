@@ -9,4 +9,8 @@
         android:id="@+id/listView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+    <ViewAnimator
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lrn_scr3_a"></ViewAnimator>
 </RelativeLayout>

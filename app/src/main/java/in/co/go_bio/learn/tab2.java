@@ -18,7 +18,7 @@ public class tab2 extends Fragment {
     View v;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v =inflater.inflate(R.layout.tab_2,container,false);
+        v =inflater.inflate(R.layout.temporary,container,false);
         l2 = new letstry(this);
 
         return v;
