@@ -6,10 +6,12 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -25,60 +27,118 @@ public class letstry {
     final static int WAITING = 2;
     final static int CROSSFADING_OUT = 3;
     final static int ZOOMING_OUT = 4;
-    final static int STOPPED = 5;
+    final static int NORMAL = 5;
     int state;
+    int playstate;
+    final static int PLAYING = 0;
+    final static int PAUSED = 1;
+    final static int STOPPED = 2;
     int i;
-
+    CountDownTimer c1;
     CountDownLatch latch;
-
+    long millisRemaining;
+    AnimatorSet zoomInAnimator;
+    AnimatorSet zoomOutAnimator;
+    ViewPropertyAnimator fadeOutAnimator, fadeInAnimator, fadeInAnimator1, fadeOutAnimator1;
     //Context c;
     public letstry(final tab2 c){
         this.c = c;
-        state = STOPPED;
+        state = NORMAL;
+        playstate = STOPPED;
         im = c.im;
         im2 = c.im2;
         int finalI;
         c.l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread t = new Thread(){
-                    @Override
-                    public void run() {
-                        //some actions
-                        for(i=0; i<=2; i++){
-                            state = ZOOMING_IN;
-                          //  zoomIn(im,c.hotspots[finalI]);
+                if(playstate==STOPPED){
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            //some actions
+                            for (i = 0; i <= 2; i++) {
+                                state = ZOOMING_IN;
+                                c.getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        playstate = PLAYING;
+                                        zoomIn(im, c.hotspots[i]);
+
+                                    }
+                                });
+                                try {
+                                    latch = new CountDownLatch(1);
+                                    latch.await();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
                             c.getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    zoomIn(im,c.hotspots[i]);
+                                    try {
+                                        c.h2.stopaudio();
+                                        playstate = STOPPED;
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
                                 }
                             });
-                            try {
-                                latch = new CountDownLatch(1);
-                                latch.await();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
 
                         }
-
+                    };
+                    t.start();
+                    c.im5.setImageResource(R.drawable.sun);
+                    c.im5.setAlpha(0f);
+                    c.im3.setImageResource(R.drawable.fertiliser);
+                    crossfade(c.im3,c.im5);
+                    c.h2.startaudio();
+                    playstate = PLAYING;
+                }else if (playstate == PLAYING){
+                    c.rooty.pause();
+                    if(state == ZOOMING_IN){
+                        zoomInAnimator.pause();
+                    }else if(state ==ZOOMING_OUT){
+                        zoomOutAnimator.pause();
+                    }else if(state == WAITING){
+                        c1.cancel();
+                    }else if(state == CROSSFADING_IN) {
+                        fadeInAnimator.cancel();
+                    }else if( state == CROSSFADING_OUT){
+                        fadeOutAnimator.cancel();
                     }
-                };
-                t.start();
+                    playstate = PAUSED;
+                }else if (playstate == PAUSED){
+                    c.rooty.start();
+                    if(state == WAITING){
+                        countDown(c.hotspots[i],millisRemaining);
+                    }else if(state == ZOOMING_IN){
+                        zoomInAnimator.resume();
+                    }else if(state == ZOOMING_OUT){
+                        zoomOutAnimator.resume();
+
+                    }else if(state == CROSSFADING_IN) {
+                        fadeInAnimator.start();
+                    }else if( state == CROSSFADING_OUT){
+                        fadeOutAnimator.start();
+                    }
+
+
+                    playstate = PLAYING;
+                }
 
             }
         });
-        fadeout = ObjectAnimator.ofFloat(im, "alpha",1f,0f);
-        fadein = ObjectAnimator.ofFloat(im2,"alpha",0f,1f);
+        //fadeout = ObjectAnimator.ofFloat(c.im3, "alpha",1f,0f);
+
         //oe = ObjectAnimator.ofInt(im2,"visibility",ImageView.GONE,ImageView.VISIBLE);
-        disappear = ObjectAnimator.ofInt(im,"visibility",ImageView.VISIBLE,ImageView.GONE);
+//        disappear = ObjectAnimator.ofInt(im,"visibility",ImageView.VISIBLE,ImageView.GONE);
         //oe.setDuration(2000);
-        disappear.setDuration(1);
-        fadein.setDuration(500);
-        fadein.setStartDelay(500);
-        fadeout.setDuration(1000);
+//        disappear.setDuration(1);
+        //fadein.setStartDelay(500);
+        //fadeout.setDuration(1000);
 
 
 
@@ -93,10 +153,10 @@ public class letstry {
         zoominy = ObjectAnimator.ofFloat(im, "scaleY",1f,3f);
         zoominx.setDuration(1000);
         zoominy.setDuration(1000);
-        AnimatorSet a = new AnimatorSet();
-        a.play(zoominx).with(zoominy);//zoom in
+        zoomInAnimator = new AnimatorSet();
+        zoomInAnimator.play(zoominx).with(zoominy);//zoom in
 
-        a.addListener(new Animator.AnimatorListener() {
+        zoomInAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -125,14 +185,30 @@ public class letstry {
 
             }
         });
-        a.start();
+        zoomInAnimator.start();
     }
 
     public void countDown(final Hotspot h){
-        CountDownTimer c1 = new CountDownTimer(h.getDuration(), 1000) {
+        c1 = new CountDownTimer(h.getDuration(), 1) {
             @Override
             public void onTick(long millisUntilFinished) {
+                millisRemaining = millisUntilFinished;
+            }
 
+            @Override
+            public void onFinish() {
+                state = CROSSFADING_OUT;
+                crossfade(im2,im, h);
+            }
+        };
+        c1.start();
+
+    }
+    public void countDown(final Hotspot h, long bam){
+        c1 = new CountDownTimer(bam, 1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                millisRemaining = millisUntilFinished;
             }
 
             @Override
@@ -151,7 +227,7 @@ public class letstry {
         im2.setVisibility(View.VISIBLE);
         //Toast.makeText(this.c.getContext(),"Crossfade",Toast.LENGTH_LONG).show();
 
-        im.animate()
+        fadeOutAnimator = im.animate()
                 .alpha(0f)
                 .setDuration(200)
                 .setListener(new AnimatorListenerAdapter() {
@@ -168,9 +244,33 @@ public class letstry {
                         }
                     }
                 });   //fade out
-        im2.animate()
+        fadeInAnimator = im2.animate()
                 .alpha(1f)
                 .setDuration(200)
+                .setListener(null);  //fade in
+    }
+
+    public void crossfade(ImageView imageView, ImageView imageView2){
+
+        final ImageView im = imageView , im2 = imageView2;
+        im2.setAlpha(0.001f);
+        im2.setVisibility(View.VISIBLE);
+        //Toast.makeText(this.c.getContext(),"Crossfade",Toast.LENGTH_LONG).show();
+
+        fadeOutAnimator1 = im.animate()
+                .alpha(0f)
+                .setDuration(1000)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        im.setVisibility(View.INVISIBLE);
+                        crossfade(im2,im);
+                        //IF condition
+                    }
+                });   //fade out
+        fadeInAnimator1 = im2.animate()
+                .alpha(1f)
+                .setDuration(1000)
                 .setListener(null);  //fade in
     }
 
@@ -180,9 +280,9 @@ public class letstry {
         zoomouty = ObjectAnimator.ofFloat(im, "scaleY",3f,1f);
         zoomoutx.setDuration(2000);
         zoomouty.setDuration(2000);
-        AnimatorSet a2 = new AnimatorSet();
-        a2.play(zoomoutx).with(zoomouty);
-        a2.addListener(new Animator.AnimatorListener() {
+        zoomOutAnimator = new AnimatorSet();
+        zoomOutAnimator.play(zoomoutx).with(zoomouty);
+        zoomOutAnimator.addListener(new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
 
@@ -190,7 +290,7 @@ public class letstry {
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            state = STOPPED;
+            state = NORMAL;
             latch.countDown();
 
         }
@@ -205,7 +305,7 @@ public class letstry {
 
         }
         });
-        a2.start();
+        zoomOutAnimator.start();
 
         }
 
