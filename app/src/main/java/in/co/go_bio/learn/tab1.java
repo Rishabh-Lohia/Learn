@@ -6,6 +6,7 @@ package in.co.go_bio.learn;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,15 +42,15 @@ public class tab1 extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment newFragment = new tab2();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.pager, newFragment).addToBackStack(null).commit();
                 // Replace whatever is in the fragment_container view with this fragment,
                 // and add the transaction to the back stack
-                transaction.replace(R.id.pager, newFragment);
-                transaction.addToBackStack(null);
+
+
 
                 // Commit the transaction
-                transaction.commit();
+
 
             }
         });
