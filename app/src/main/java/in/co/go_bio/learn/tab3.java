@@ -53,9 +53,9 @@ public class tab3 extends Fragment {
         fadeout = AnimationUtils.loadAnimation(this.getContext(), android.R.anim.fade_out);
         zoomInListener = new ZoomInListener(this);
         zoomOutListener = new ZoomOutListener(this);
-        h2 = new AudioHandler(this);
-        t = new Thread(h2);
-        t.start();
+        //h2 = new AudioHandler(this);
+       /* t = new Thread(h2);
+        t.start();*/
         numOfHotspots = 5;
         currentHotspot = 0;
         numOfgrows = 0;

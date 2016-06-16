@@ -3,6 +3,7 @@ package in.co.go_bio.learn;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Process;
+import android.support.v4.app.Fragment;
 
 import java.io.IOException;
 
@@ -10,8 +11,9 @@ import java.io.IOException;
  * Created by rishabh on 3/6/16.
  */
 public class AudioHandler implements Runnable {
-    tab3 m;
-    public AudioHandler(tab3 m){
+    tab2 m;
+
+    public AudioHandler(tab2 m){
         this.m=m;
     }
 
