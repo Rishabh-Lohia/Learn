@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp" />
+
+            <android.support.percent.PercentRelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentStart="true"
+                android:id="@+id/view"
+                android:background="#b82727">
+
+                <ImageView
+                    app:layout_widthPercent="72%"
+                    app:layout_heightPercent="50%"
+                    android:id="@+id/imageView6"
+                    app:layout_aspectRatio="158%"/>
+
+                <ImageView
+                    app:layout_widthPercent="72%"
+                    app:layout_heightPercent="50%"
+                    android:id="@+id/imageView7"
+                    app:layout_aspectRatio="158%"/>
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_below="@+id/textView2"
+                android:layout_toEndOf="@+id/view"
+                android:layout_toRightOf="@+id/view"
+                android:background="#1e0d0d"
+                android:id="@+id/view2">
+
+                <ImageView
+                    app:layout_widthPercent="100%"
+                    app:layout_heightPercent="25%"
+                    android:id="@+id/imageView8"
+                    app:layout_aspectRatio="158%"/>
+
+                <ImageView
+                    app:layout_widthPercent="100%"
+                    app:layout_heightPercent="25%"
+                    android:id="@+id/imageView9"
+                    app:layout_aspectRatio="158%"
+                    android:layout_below="@+id/imageView8"
+                    android:layout_alignParentEnd="true" />
+
+
+            </android.support.percent.PercentRelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
