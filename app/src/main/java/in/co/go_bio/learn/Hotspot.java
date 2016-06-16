@@ -42,15 +42,15 @@ public class Hotspot {
     private int image_uri;
 
     public Hotspot(float x, float y, long duration){
-        this.x=x;
-        this.y=y;
-        this.duration=duration;
-        this.image_uri=R.raw.boo3;
+        this.x = x;
+        this.y = y;
+        this.duration = duration;
+        image_uri = -1;
     }
     public Hotspot(float x, float y, long duration, int image_uri){
-        this.x=x;
-        this.y=y;
-        this.duration=duration;
+        this.x = x;
+        this.y = y;
+        this.duration = duration;
         this.image_uri = image_uri;
     }
 

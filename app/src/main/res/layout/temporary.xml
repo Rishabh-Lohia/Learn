@@ -3,21 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
    <!-- android:background="@color/abc_search_url_text_pressed"-->
 
     <LinearLayout
-        app:layout_widthPercent="50%"
+        app:layout_widthPercent="71.875%"
         app:layout_heightPercent="50%"
-        app:layout_aspectRatio="58%"
+        app:layout_aspectRatio="127.77%"
         android:id="@+id/iholdimage">
     <ImageView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:src="@drawable/plant"
         android:id="@+id/im"
-        android:visibility="visible" />
+        android:visibility="visible"
+        />
         <ImageView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -25,4 +28,28 @@
             android:src="@drawable/root"
             android:visibility="visible"
             /></LinearLayout>
+    <ImageView
+        app:layout_widthPercent="28.125%"
+        app:layout_heightPercent="25%"
+        android:id="@+id/icon1"
+        android:layout_toRightOf="@+id/iholdimage"/>
+    <ImageView
+        app:layout_widthPercent="28.125%"
+        app:layout_heightPercent="25%"
+        android:id="@+id/icon2"
+        android:layout_toRightOf="@+id/iholdimage"/>
+    <ImageView
+        app:layout_widthPercent="28.125%"
+        app:layout_heightPercent="25%"
+        android:id="@+id/icon3"
+        android:layout_toRightOf="@+id/iholdimage"
+        android:layout_below="@+id/icon1"
+        />
+    <ImageView
+        app:layout_widthPercent="28.125%"
+        app:layout_heightPercent="25%"
+        android:id="@+id/icon4"
+        android:layout_toRightOf="@+id/iholdimage"
+        android:layout_below="@+id/icon1"
+        />
 </android.support.percent.PercentRelativeLayout>
