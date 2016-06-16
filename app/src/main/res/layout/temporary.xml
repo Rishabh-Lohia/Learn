@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <!-- android:background="@color/abc_search_url_text_pressed"-->
+
+    <LinearLayout
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="50%"
+        app:layout_aspectRatio="58%"
+        android:id="@+id/iholdimage">
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/plant"
+        android:id="@+id/im"
+        android:visibility="visible" />
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/im2"
+            android:src="@drawable/root"
+            android:visibility="visible"
+            /></LinearLayout>
+</android.support.percent.PercentRelativeLayout>
