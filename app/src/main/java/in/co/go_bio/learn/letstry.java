@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.ImageView;
@@ -20,7 +21,7 @@ import java.util.concurrent.CountDownLatch;
 public class letstry {
    ImageView im, im2;
     tab2 c;
-    ObjectAnimator zoominx, zoominy, fadein, fadeout, disappear, zoomoutx, zoomouty;
+    ObjectAnimator zoominx, zoominy, zoomoutx, zoomouty;
     LinearLayout l1;
     final static int ZOOMING_IN = 0;
     final static int CROSSFADING_IN = 1;
@@ -37,9 +38,10 @@ public class letstry {
     CountDownTimer c1;
     CountDownLatch latch;
     long millisRemaining;
+    AnimatorSet crossFade;
     AnimatorSet zoomInAnimator;
     AnimatorSet zoomOutAnimator;
-    ViewPropertyAnimator fadeOutAnimator, fadeInAnimator, fadeInAnimator1, fadeOutAnimator1;
+    ViewPropertyAnimator fadeOutAnimator, fadeInAnimator;
     //Context c;
     public letstry(final tab2 c){
         this.c = c;
@@ -48,7 +50,7 @@ public class letstry {
         im = c.im;
         im2 = c.im2;
         int finalI;
-        c.l.setOnClickListener(new View.OnClickListener() {
+        c.pl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(playstate==STOPPED){
@@ -78,6 +80,7 @@ public class letstry {
                                 @Override
                                 public void run() {
                                     try {
+                                        crossFade.end();
                                         c.h2.stopaudio();
                                         playstate = STOPPED;
                                     } catch (IOException e) {
@@ -90,9 +93,10 @@ public class letstry {
                         }
                     };
                     t.start();
-                    c.im5.setImageResource(R.drawable.sun);
-                    c.im5.setAlpha(0f);
-                    c.im3.setImageResource(R.drawable.fertiliser);
+                    c.im5.setImageResource(c.icons[1]);
+                    //c.im5.setAlpha(0f);
+                    c.im3.setImageResource(c.icons[0]);
+                    c.curr_icon = 1;
                     crossfade(c.im3,c.im5);
                     c.h2.startaudio();
                     playstate = PLAYING;
@@ -106,9 +110,16 @@ public class letstry {
                         c1.cancel();
                     }else if(state == CROSSFADING_IN) {
                         fadeInAnimator.cancel();
+                        fadeOutAnimator.cancel();
                     }else if( state == CROSSFADING_OUT){
                         fadeOutAnimator.cancel();
+                        fadeInAnimator.cancel();
                     }
+                    //if(c.im3.getAnimation()==null)
+                    //    Toast.makeText(c.getContext(),"LOL hai null",Toast.LENGTH_SHORT);
+//                    fadeInAnimator1.cancel();
+//                    fadeOutAnimator1.cancel();
+                    crossFade.pause();
                     playstate = PAUSED;
                 }else if (playstate == PAUSED){
                     c.rooty.start();
@@ -119,13 +130,11 @@ public class letstry {
                     }else if(state == ZOOMING_OUT){
                         zoomOutAnimator.resume();
 
-                    }else if(state == CROSSFADING_IN) {
+                    }else if(state == CROSSFADING_IN || state == CROSSFADING_OUT) {
                         fadeInAnimator.start();
-                    }else if( state == CROSSFADING_OUT){
                         fadeOutAnimator.start();
                     }
-
-
+                    crossFade.resume();
                     playstate = PLAYING;
                 }
 
@@ -148,7 +157,7 @@ public class letstry {
         final Hotspot h = hotspot;
         imageView.setPivotX(imageView.getWidth()*h.getX());
         imageView.setPivotY(imageView.getHeight()*h.getY());
-        Toast.makeText(this.c.getContext(),"x pivot "+Float.toString(im.getPivotX()),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this.c.getContext(),"x pivot "+Float.toString(im.getPivotX()),Toast.LENGTH_LONG).show();
         zoominx = ObjectAnimator.ofFloat(im, "scaleX",1f,3f);
         zoominy = ObjectAnimator.ofFloat(im, "scaleY",1f,3f);
         zoominx.setDuration(1000);
@@ -256,22 +265,39 @@ public class letstry {
         im2.setAlpha(0.001f);
         im2.setVisibility(View.VISIBLE);
         //Toast.makeText(this.c.getContext(),"Crossfade",Toast.LENGTH_LONG).show();
+        ObjectAnimator fadeout = ObjectAnimator.ofFloat(im,"alpha",1f,0f);
+        ObjectAnimator fadein = ObjectAnimator.ofFloat(im2,"alpha",0f,1f);
+        fadeout.setDuration(4000);
+        fadein.setDuration(4000);
+        crossFade = new AnimatorSet();
+        crossFade.play(fadein).with(fadeout);
+        crossFade.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
-        fadeOutAnimator1 = im.animate()
-                .alpha(0f)
-                .setDuration(1000)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        im.setVisibility(View.INVISIBLE);
-                        crossfade(im2,im);
-                        //IF condition
-                    }
-                });   //fade out
-        fadeInAnimator1 = im2.animate()
-                .alpha(1f)
-                .setDuration(1000)
-                .setListener(null);  //fade in
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                im.setVisibility(View.INVISIBLE);
+                im.setImageResource(c.icons[c.curr_icon]);
+                im.setAlpha(0f);
+                c.curr_icon = (c.curr_icon + 1)%c.noOfIcons;
+                crossfade(im2, im);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        crossFade.start();
+
     }
 
     public void zoomOut(ImageView im){

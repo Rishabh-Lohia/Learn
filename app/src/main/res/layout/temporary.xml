@@ -6,7 +6,8 @@
     android:layout_marginLeft="@dimen/activity_vertical_margin"
     android:layout_marginRight="@dimen/activity_vertical_margin"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id = "@+id/percent">
    <!-- android:background="@color/abc_search_url_text_pressed"-->
 
     <LinearLayout
@@ -17,7 +18,7 @@
     <ImageView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:src="@drawable/plant"
+        android:src="@drawable/roseplant"
         android:id="@+id/im"
         android:visibility="visible"
         />
@@ -25,7 +26,6 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:id="@+id/im2"
-            android:src="@drawable/root"
             android:visibility="visible"
             />
     </LinearLayout>
@@ -34,11 +34,7 @@
         app:layout_heightPercent="25%"
         android:id="@+id/icon1"
         android:layout_toRightOf="@+id/iholdimage"/>
-    <ImageView
-        app:layout_widthPercent="28.125%"
-        app:layout_heightPercent="25%"
-        android:id="@+id/icon2"
-        android:layout_toRightOf="@+id/iholdimage"/>
+
     <ImageView
         app:layout_widthPercent="28.125%"
         app:layout_heightPercent="25%"
@@ -46,11 +42,5 @@
         android:layout_toRightOf="@+id/iholdimage"
         android:layout_below="@+id/icon1"
         />
-    <ImageView
-        app:layout_widthPercent="28.125%"
-        app:layout_heightPercent="25%"
-        android:id="@+id/icon4"
-        android:layout_toRightOf="@+id/iholdimage"
-        android:layout_below="@+id/icon1"
-        />
+
 </android.support.percent.PercentRelativeLayout>
